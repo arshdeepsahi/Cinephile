@@ -11,6 +11,7 @@ from omdbapi.movie_search import GetMovie
 import requests
 
 cgitb.enable()
+
 # Create instance of FieldStorage
 form = cgi.FieldStorage()
 
