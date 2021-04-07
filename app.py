@@ -1,11 +1,13 @@
 #!C:\Program Files (x86)\Python38-32\python.exe
+print("Content-type:text/html\n")
+
 # Import modules for CGI handling
 import cgi
 import cgitb
-
 #Import omdb API python library
 #pip install omdbapi
 from omdbapi.movie_search import GetMovie
+import requests
 
 cgitb.enable()
 
@@ -20,8 +22,15 @@ Searchedmovie = form.getvalue('movie')
 movie = GetMovie(title=Searchedmovie, api_key='11a56ba6')
 
 #Get all information of the movie in json format
-movieJsondata = movie.get_all_date()
+movieJsondata = movie.get_all_data()
 
 #add to DB
-
 #Return Json to be displayed on front end
+print("<html>")
+print("<head>")
+print("<title>Cinephile</title>")
+print("</head>")
+print("<body>")
+print("<h2> %s </h2>" % (movieJsondata))
+print("</body>")
+print("</html>")
