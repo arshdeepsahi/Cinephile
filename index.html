@@ -2,25 +2,49 @@
 <html>
 
 <head>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
   <title>Cinephile</title>
+
+  <script type="text/javascript">
+
+    function find_movie(keyEvent)
+    {
+      var movie = document.getElementById("movie").value;
+      var xhttp = new XMLHttpRequest();
+
+      var query = "app.py?movie=" + movie;
+      xhttp.open("GET", query, true);
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          var outstr = this.responseText;
+          var targetDiv = document.getElementById("target").innerHTML = outstr;
+        }
+      }
+      xhttp.send(null);
+    }
+
+  </script>
 </head>
 
 <body>
   <h2>Search and Add a movie: </h2>
-  <form action="app.py" method="get">
+  <form action="">
     <table>
       <tbody>
         <tr>
           <td>Movie: </td>
-          <td><input size="10" name="movie" /> </td>
+          <td><input size="10" id="movie" /> </td>
         </tr>
       </tbody>
     </table>
-    <input value="reset" type="reset" /> <input value="Add to list" type="submit" />
+    <input value="reset" type="reset" /> <input value="Add to list" type="button" onclick=find_movie() />
   </form>
 
   <h2>My List:</h2>
-  <h3>Show DB table here as movies are added</h3>
+  <h2 id="target">movie shown here</h2>
+  <h3>Show DB table here as movies are added (also rating, comment, share/export list features)</h3>
+
+  <h2>Recommendation Tool:</h2>
 </body>
 
 </html>

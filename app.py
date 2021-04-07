@@ -16,7 +16,7 @@ cgitb.enable()
 form = cgi.FieldStorage()
 
 # Get movie to be searched from the search bar
-Searchedmovie = form.getvalue('movie')
+Searchedmovie = form['movie'].value
 
 #Search for that movie
 #API KEY: 11a56ba6
@@ -27,12 +27,13 @@ movieJsondata = movie.get_all_data()
 
 #add to DB
 
+print(movieJsondata)
 #Return Json to be displayed on front end
-print("<html>")
-print("<head>")
-print("<title>Cinephile</title>")
-print("</head>")
-print("<body>")
-print("<h2> %s </h2>" % (movieJsondata))
-print("</body>")
-print("</html>")
+#print("<html>")
+#print("<head>")
+#print("<title>Cinephile</title>")
+#print("</head>")
+#print("<body>")
+#print("<h2> %s </h2>" % (movieJsondata))
+#print("</body>")
+#print("</html>")
