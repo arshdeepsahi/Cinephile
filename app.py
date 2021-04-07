@@ -4,13 +4,13 @@ print("Content-type:text/html\n")
 # Import modules for CGI handling
 import cgi
 import cgitb
-#Import omdb API python library
+#Import omdb API python library & requests library
 #pip install omdbapi
+#pip install requests
 from omdbapi.movie_search import GetMovie
 import requests
 
 cgitb.enable()
-
 # Create instance of FieldStorage
 form = cgi.FieldStorage()
 
@@ -25,6 +25,7 @@ movie = GetMovie(title=Searchedmovie, api_key='11a56ba6')
 movieJsondata = movie.get_all_data()
 
 #add to DB
+
 #Return Json to be displayed on front end
 print("<html>")
 print("<head>")
