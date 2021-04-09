@@ -8,7 +8,6 @@ Remove from list (delete)
 
 # If we have time:
 Give ratings  
-Sort by ratings/alphabetic  
 export list  
 reccomendation tool  
 User authentication with DB  
