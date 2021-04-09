@@ -8,9 +8,3 @@ Add to list (search)
 # If we have time:
 reccomendation tool  
 User authentication with DB  
-
-# How it works:
-React frontend user searches for a movie  
-Express/Node backend calls api return json for given movie  
-React frontend formats json and adds to local array  
-Display array on frontend  
