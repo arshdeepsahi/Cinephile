@@ -120,7 +120,7 @@ export default class App extends React.Component {
                     }}
                 />
                 </div>
-                  <input type="submit" value="Submit" />
+                  <input type="submit" value="Search" />
               </form>
             </header>
           </div>
