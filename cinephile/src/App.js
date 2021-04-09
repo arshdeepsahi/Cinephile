@@ -6,6 +6,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 // height of the TextField
 const height = '5vh'
+const width = '70vh'
+
 
 // magic number which must be set appropriately for height
 const labelOffset = -6
@@ -29,7 +31,7 @@ function App() {
               variant="outlined"
               
               /* styles the wrapper */
-              style={{ height }}
+              style={{ height, width}}
 
               /* styles the label component */
               InputLabelProps={{
