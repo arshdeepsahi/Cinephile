@@ -4,7 +4,6 @@ API KEY: 11a56ba6
 
 # Essential Features:
 Add to list (search)  
-Remove from list (delete)  
 
 # If we have time:
 reccomendation tool  
