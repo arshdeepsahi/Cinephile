@@ -27,7 +27,7 @@ function App() {
             <TextField
               label="Search"
               variant="outlined"
-
+              
               /* styles the wrapper */
               style={{ height }}
 
