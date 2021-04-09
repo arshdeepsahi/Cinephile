@@ -3,6 +3,7 @@ import './App.css';
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import SearchResult from './components/searchResult.js';
 
 
 // height of the TextField
@@ -29,36 +30,38 @@ export default class App extends React.Component {
   state = {
     searchQuery: "",
     history: [],
-    moviePoster: "",
-    movieTitle: "",
-    movieGenre: "",
-    movieRuntime: "",
-    moviePlot: "",
-    movieYear: "",
-    movieImdbRating: "",
+    // moviePoster: "",
+    // movieTitle: "",
+    // movieGenre: "",
+    // movieRuntime: "",
+    // moviePlot: "",
+    // movieYear: "",
+    // movieImdbRating: "",
+    movies: [],
     mode: "search"
   };
 
   updateQuery = () => {
     // read all entities
     fetch(
-      `http://www.omdbapi.com/?t=${this.state.searchQuery}&apikey=11a56ba6&`,
+      `http://www.omdbapi.com/?s=${this.state.searchQuery}&apikey=11a56ba6&`,
       {
         method: "GET",
       }
     )
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        console.log(response["Title"]);
+        // console.log(response["Search"][1]["Title"]);
+        // console.log(response["Search"]);
         this.setState({
-          moviePoster: response["Poster"],
-          movieTitle: response["Title"],
-          movieGenre: response["Genre"],
-          movieRuntime: response["Runtime"],
-          moviePlot: response["Plot"],
-          movieYear: response["Year"],
-          movieImdbRating: response["imdbRating"],
+          // moviePoster: response["Poster"],
+          // movieTitle: response["Title"],
+          // movieGenre: response["Genre"],
+          // movieRuntime: response["Runtime"],
+          // moviePlot: response["Plot"],
+          // movieYear: response["Year"],
+          // movieImdbRating: response["imdbRating"],
+          movies: response["Search"]
         });
       })
       .catch((err) => {
@@ -77,7 +80,7 @@ export default class App extends React.Component {
   }
 
   toggleMode = () => {
-    if (this.state.mode == "search") {
+    if (this.state.mode === "search") {
       this.setState({ mode: "display" })
     } else {
       this.setState({ mode: "search" })
@@ -128,14 +131,10 @@ export default class App extends React.Component {
       } else {
         return (
           <div className="App">
-          <header className="App-header">
-            <img src={`${this.state.moviePoster}`} alt="Movie Poster" />
-            <h1>{this.state.movieTitle} ({this.state.movieYear})</h1>
-            <p>{this.state.movieGenre}</p>
-            <p class="description">{this.state.moviePlot}</p>
-            <h3>{this.state.movieImdbRating}</h3>
-            <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode()}>RESET</Button>
-          </header>
+            <div className="movie-results">
+              <SearchResult movies={this.state.movies} />
+              <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode()}>RESET</Button>
+            </div>
         </div>
         );
       }

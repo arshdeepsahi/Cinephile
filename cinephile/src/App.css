@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background-image: url("images/bg.jpg");
+  background-size: 100% 100%;
 }
 
 p, h1, h2 {
@@ -42,15 +44,25 @@ h3, h4 {
 
 .App-header {
   /* background-color: #282c34; */
-  background-image: url("images/bg.jpg");
-  background-size: 100% 100%;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* justify-content: center; */
+  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.movie-results {
+  /* background-color: #282c34; */
+  min-height: 100vh;
+  max-width: 100vw;
+  /* display: inline; */
+  /* flex-direction: column;
+  align-items: center; */
+  /* justify-content: center; */
+  font-size: calc(10px + 2vmin);
+  color: black;
 }
 
 .App-link {
