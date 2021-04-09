@@ -2,7 +2,8 @@ import logo from './images/logo.png';
 import './App.css';
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+
 
 // height of the TextField
 const height = '5vh'
@@ -35,6 +36,7 @@ export default class App extends React.Component {
     moviePlot: "",
     movieYear: "",
     movieImdbRating: "",
+    mode: "search"
   };
 
   updateQuery = () => {
@@ -69,46 +71,73 @@ export default class App extends React.Component {
   }
 
   handleSubmit(event) {
-    // this.setState({ searchQuery: event.target.value });
     this.updateQuery();
+    this.toggleMode();
     event.preventDefault();
   }
 
+  toggleMode = () => {
+    if (this.state.mode == "search") {
+      this.setState({ mode: "display" })
+    } else {
+      this.setState({ mode: "search" })
+    }
+  }
+
   render() {
-    return (
-        <div className="App">
-          <header className="App-header">
-            <div className="shake">
-              <img src={logo} className="App-logo" alt="logo" />
-            </div>
-            <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
-              <div>
-                <TextField
-                  // label="Search"
-                  variant="outlined"
-                  /* styles the wrapper */
-                  style={{ height, width}}
-                  /* styles the label component */
-                  InputLabelProps={{
-                    style: {
-                      height,
-                      ...(!focused && { top: `${labelOffset}px` }),
-                    },
-                  }}
-                  /* styles the input component */
-                  inputProps={{
-                    onChange: this.handleChange,
+
+    if (this.state.mode === "search") {
+      return (
+          <div className="App">
+            <header className="App-header">
+              <div className="shake">
+                <img src={logo} className="App-logo" alt="logo" />
+              </div>
+              <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
+                <div>
+                  <TextField
+                    // label="Search"
+                    variant="outlined"
+                    /* styles the wrapper */
+                    style={{ height, 
+                      width, 
+                      paddingTop: '10vh',
+                    }}
+                    /* styles the label component */
+                    InputLabelProps={{
                       style: {
                         height,
-                        padding: '0 14px',
+                        ...(!focused && { top: `${labelOffset}px` }),
                       },
-                  }}
-              />
-              </div>
-              <input type="submit" value="Submit" />
-            </form>
+                    }}
+                    /* styles the input component */
+                    inputProps={{
+                      onChange: this.handleChange,
+                        style: {
+                          height,
+                          padding: '0 14px',
+                        },
+                    }}
+                />
+                </div>
+                  <input type="submit" value="Submit" />
+              </form>
+            </header>
+          </div>
+        );
+      } else {
+        return (
+          <div className="App">
+          <header className="App-header">
+            <img src={`${this.state.moviePoster}`} alt="Movie Poster" />
+            <h1>{this.state.movieTitle} ({this.state.movieYear})</h1>
+            <p>{this.state.movieGenre}</p>
+            <p class="description">{this.state.moviePlot}</p>
+            <h3>{this.state.movieImdbRating}</h3>
+            <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode()}>RESET</Button>
           </header>
         </div>
-      );
+        );
+      }
     }
 }

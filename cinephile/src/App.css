@@ -2,6 +2,22 @@
   text-align: center;
 }
 
+p, h1, h2 {
+  color: black;
+}
+
+h3, h4 {
+  color: darkred;
+}
+
+.description {
+  font-size:small ;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  padding-top: 0;
+  margin-top: 0;
+}
+
 .App-logo {
   margin-top: 15vh;
   height: 35vh;

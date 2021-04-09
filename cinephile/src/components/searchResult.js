@@ -1,4 +1,5 @@
 import React from 'react';
+import './searchResult.css';
 
 export default class SearchResult extends React.Component {
 
@@ -9,6 +10,6 @@ export default class SearchResult extends React.Component {
   }
 
   render() {
-    return <label>second component</label>
+    return <h2>second component</h2>
     }
 }
