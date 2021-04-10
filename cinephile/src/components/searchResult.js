@@ -143,7 +143,7 @@ export default class SearchResult extends React.Component {
                     ))}
                 </Row>
                 <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("mylist")}>MY LIST</Button>
-                <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>RESET</Button>
+                <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>LOGOUT</Button>
           </>
       );
     } else if (this.state.mode === "mylist"){
@@ -229,7 +229,7 @@ export default class SearchResult extends React.Component {
                   <input type="submit" value="Search" />
               </form>
           <h3>Search Results ({this.state.movies.length})</h3>
-          <Row gutter={30} span={1} style={this.styles.movieColumn}>
+          <Row gutter={30} span={5} style={this.styles.movieColumn}>
             {this.state.movies.map((movie) => (
               <Col span={3} style={this.styles.movieColumn} >
                   <Paper style={this.styles.moviePaper}>
@@ -255,7 +255,7 @@ export default class SearchResult extends React.Component {
                     </Col>
               ))}
           </Row>
-          <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>RESET</Button>
+          <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>LOGOUT</Button>
       </>     
       );
     } else {

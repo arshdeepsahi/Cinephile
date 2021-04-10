@@ -25,12 +25,17 @@ export default class App extends React.Component {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
+    this.handlePassChange = this.handlePassChange.bind(this);
+    this.handleUserChange = this.handleUserChange.bind(this);
   }
 
   state = {
     searchQuery: "",
     movies: [],
-    mode: "search"
+    user: "",
+    password: "",
+    mode: "login"
   };
 
   updateQuery = () => {
@@ -58,17 +63,40 @@ export default class App extends React.Component {
 
   handleSubmit(event) {
     this.updateQuery();
-    this.toggleMode();
+    this.toggleMode("display");
     event.preventDefault();
   }
 
-  toggleMode = () => {
-    if (this.state.mode === "search") {
-      this.setState({ mode: "display" })
-    } else {
-      this.setState({ mode: "search" })
+  handleUserChange(event) {
+    this.setState({ user: event.target.value });
+  }
+
+  handlePassChange(event) {
+    this.setState({ password: event.target.value });
+  }
+
+  handleLoginSubmit(event) {
+    this.toggleMode("search");
+    // event.preventDefault();
+  }
+
+  toggleMode = (selectedMode) => {
+    if (selectedMode === "search") {
+      this.setState({ mode: "search" });
+    } else if (selectedMode === "display") {
+      this.setState({ mode: "display" });
+    } else if (selectedMode === "login") {
+      this.setState({ mode: "login" });
     }
   }
+
+  // toggleMode = () => {
+  //   if (this.state.mode === "search") {
+  //     this.setState({ mode: "display" })
+  //   } else {
+  //     this.setState({ mode: "search" })
+  //   }
+  // }
 
   render() {
     console.log(this.props.mylist);
@@ -79,6 +107,7 @@ export default class App extends React.Component {
               <div className="shake">
                 <img src={logo} className="App-logo" alt="logo" />
               </div>
+              <h3>Hi, {this.state.user}!</h3>
               <form noValidate autoComplete="off" onSubmit={this.handleSubmit}>
                 <div>
                   <TextField
@@ -111,6 +140,72 @@ export default class App extends React.Component {
             </header>
           </div>
         );
+      } else if (this.state.mode === "login") {
+        return (
+          <div className="App">
+              <div className="shake">
+                <img src={logo} className="App-logo" alt="logo" />
+              </div>
+            <div className="movie-results">
+            <form noValidate autoComplete="off" onSubmit={this.handleLoginSubmit}>
+                <div>
+                  <TextField
+                    label="Username"
+                    variant="outlined"
+                    /* styles the wrapper */
+                    style={{ height, 
+                      width, 
+                      paddingTop: '10vh',
+                    }}
+                    /* styles the label component */
+                    InputLabelProps={{
+                      style: {
+                        height,
+                        ...(!focused && { top: `${labelOffset}px` }),
+                      },
+                    }}
+                    /* styles the input component */
+                    inputProps={{
+                      onChange: this.handleUserChange,
+                        style: {
+                          height,
+                          padding: '0 14px',
+                        },
+                    }}
+                /> 
+                <br />
+                  <TextField
+                    label="Password"
+                    type="password"
+                    variant="outlined"
+                    /* styles the wrapper */
+                    style={{ height, 
+                      width, 
+                      paddingTop: '10vh',
+                    }}
+                    /* styles the label component */
+                    InputLabelProps={{
+                      style: {
+                        height,
+                        ...(!focused && { top: `${labelOffset}px` }),
+                      },
+                    }}
+                    /* styles the input component */
+                    inputProps={{
+                      onChange: this.handlePassChange,
+                        style: {
+                          height,
+                          padding: '0 14px',
+                        },
+                    }}
+                />
+                </div>
+                  {/* <input type="submit" value="Search" /> */}
+              </form>
+              <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.handleLoginSubmit()}>LOGIN</Button>
+            </div>
+          </div>
+        );
       } else {
         return (
           <div className="App">
@@ -118,7 +213,7 @@ export default class App extends React.Component {
               <SearchResult movies={this.state.movies} />
               {/* <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode()}>RESET</Button> */}
             </div>
-        </div>
+          </div>
         );
       }
     }
