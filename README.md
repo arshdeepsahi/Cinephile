@@ -1,11 +1,18 @@
 # Cinephile
-http://www.omdbapi.com/  
-API KEY: 11a56ba6  
+Group Members:  
+- Arshdeep Sahi
+- Ireoluwatomiwa Oladele
+- Scott Peebles
 
 # How to Compile:
 
-# How to Deploy:
+npm install
 
-# How to run:
+# How to Run:
+
+npm start
+(Runs on port 3000)
 
 # External Resources Used:
+http://www.omdbapi.com/  
+API KEY: 11a56ba6  
