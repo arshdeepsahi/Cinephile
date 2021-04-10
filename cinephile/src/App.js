@@ -52,7 +52,6 @@ export default class App extends React.Component {
       .then((response) => response.json())
       .then((response) => {
         // console.log(response["Search"][1]["Title"]);
-        // console.log(response["Search"]);
         this.setState({
           // moviePoster: response["Poster"],
           // movieTitle: response["Title"],

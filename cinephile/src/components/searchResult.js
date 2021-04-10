@@ -13,24 +13,31 @@ export default class SearchResult extends React.Component {
 
   constructor(props) {
     super(props);
-    // this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleChange = this.handleChange.bind(this);
-    // this.setState({
-    //   movies: this.props.movies
-    // });
   }
 
-  addToList = (param1) => {
-    if (param1 !== "") {
-      var newItem = {
-        text: param1,
-        key: Date.now()
-      };
-   
-      this.setState((prevState) => {
-        return { 
-          movies: prevState.movies.concat(newItem) 
+  addToList = (selectedMovie) => {
+    if (selectedMovie !== "") {
+      fetch(
+        `http://www.omdbapi.com/?i=${selectedMovie[0]}&apikey=11a56ba6&`,
+        {
+          method: "GET",
+        }
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          console.log(response["Genre"]);
+          selectedMovie.push(response["Genre"]);
+          selectedMovie.push(response["Plot"]);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+        var movieData = {
+          data: selectedMovie,
+          key: Date.now()
         };
+      this.setState({
+          movies: [...this.state.movies, movieData]
       });
     }
     console.log(this.state.movies);
@@ -63,13 +70,12 @@ export default class SearchResult extends React.Component {
               <img src={logo} className="App-logo2" alt="logo" />
                 <Row gutter={30} span={1} style={this.styles.movieColumn}>
                   {this.props.movies.map((movie) => (
-                    //console.log(movie["Title"])
                     <Col span={3} style={this.styles.movieColumn} >
                         <Paper style={this.styles.moviePaper}>
                             <img src={`${movie["Poster"]}`} width="80%" alt="Movie Poster" /> 
                             <br />
                             <h4>{movie["Title"]} ({movie["Year"]})</h4>
-                            <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.addToList(movie["Title"])}>Add to List</Button>
+                            <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.addToList([movie["imdbID"], movie["Title"], movie["Year"], movie["Poster"]])}>Add to List</Button>
                         </Paper>
                     </Col>
                     ))}
