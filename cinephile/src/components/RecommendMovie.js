@@ -11,14 +11,33 @@ export default class RecommendMovie extends React.Component {
 
   state = {
     mylist: this.props.mylist,
+    topGenre: "",
+    movieSuggestions: []
   };
+
+  mostOccurrences = (arr) => {
+    return arr.sort((a,b) =>
+          arr.filter(v => v===a).length
+        - arr.filter(v => v===b).length
+    ).pop();
+}
 
   analyzeTopGenre = () => {
       // needs to be implemented
-      
+      var genres = []
+      var arr = []
+      this.state.mylist.forEach((movie) => {
+          arr = movie.data[4].split(",");
+          for (var i = 0; i < arr.length; i++) {
+            genres.push(arr[i]);
+          }
+      });
+      this.setState ({
+        topGenre: this.mostOccurrences(genres)
+      })
   }
 
-  updateQuery = () => {
+  getSuggestion = () => {
     // read all entities
     fetch(
       `http://www.omdbapi.com/?s=${this.state.searchQuery}&apikey=11a56ba6&`,
@@ -29,7 +48,7 @@ export default class RecommendMovie extends React.Component {
       .then((response) => response.json())
       .then((response) => {
         this.setState({
-          movies: response["Search"]
+          movieSuggestions: response["Search"]
         });
       })
       .catch((err) => {
@@ -58,6 +77,7 @@ export default class RecommendMovie extends React.Component {
   }
 
   render() {
+      this.analyzeTopGenre();
         return (
             <>
             <img src={logo} className="App-logo2" alt="logo" />
