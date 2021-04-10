@@ -10,6 +10,10 @@ export default class RecommendMovie extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.analyzeTopGenre();
+  }
+
   state = {
     mylist: this.props.mylist,
     topGenre: "",
@@ -45,7 +49,7 @@ export default class RecommendMovie extends React.Component {
     } else if (topGenre === "Romance") {
         suggestedMovie = "The Notebook";
     } else {
-        suggestedMovie = "Avengers";
+        suggestedMovie = "The Avengers";
     } 
 
     fetch(
@@ -87,7 +91,7 @@ export default class RecommendMovie extends React.Component {
   }
 
   render() {
-      this.analyzeTopGenre();
+    this.analyzeTopGenre();
         return (
             <>
             <img src={logo} className="App-logo2" alt="logo" />
