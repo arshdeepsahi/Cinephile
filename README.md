@@ -11,6 +11,7 @@ npm install
 # How to Run:
 
 npm start
+(Runs on port 3000)
 
 # External Resources Used:
 http://www.omdbapi.com/  
