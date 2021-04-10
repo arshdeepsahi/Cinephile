@@ -6,6 +6,7 @@ import logo from '../images/logo.png';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import App from '../App.js';
+import RecommendMovie from './RecommendMovie.js'
 
 // height of the TextField
 const height = '5vh'
@@ -36,15 +37,9 @@ export default class SearchResult extends React.Component {
   }
 
   toggleMode = (selectedMode) => {
-    if (selectedMode === "results") {
-      this.setState({ mode: "results" });
-    } else if (selectedMode === "mylist") {
-      this.setState({ mode: "mylist" });
-    } else if (selectedMode === "search") {
-      this.setState({ mode: "search" });
-    } else {
-      this.setState({ mode: "reset" });
-    }
+    this.setState ({
+      mode: selectedMode
+    })
   }
 
   handleChange(event) {
@@ -192,6 +187,7 @@ export default class SearchResult extends React.Component {
                   </Col>
                   ))}
               </Row>
+              <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("recommendations")}>RECOMMEND A MOVIE</Button>
               <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>RESET</Button>
         </>
       );
@@ -255,8 +251,16 @@ export default class SearchResult extends React.Component {
                     </Col>
               ))}
           </Row>
+          <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("recommendations")}>RECOMMEND A MOVIE</Button>
           <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>LOGOUT</Button>
       </>     
+      );
+    } else if (this.state.mode === "recommendations") {
+      return (
+        <>
+          <RecommendMovie mylist={this.state.mylist} />
+          <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>LOGOUT</Button>
+        </>
       );
     } else {
       return (
