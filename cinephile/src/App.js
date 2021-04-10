@@ -29,14 +29,6 @@ export default class App extends React.Component {
 
   state = {
     searchQuery: "",
-    history: [],
-    // moviePoster: "",
-    // movieTitle: "",
-    // movieGenre: "",
-    // movieRuntime: "",
-    // moviePlot: "",
-    // movieYear: "",
-    // movieImdbRating: "",
     movies: [],
     mode: "search"
   };
@@ -51,15 +43,7 @@ export default class App extends React.Component {
     )
       .then((response) => response.json())
       .then((response) => {
-        // console.log(response["Search"][1]["Title"]);
         this.setState({
-          // moviePoster: response["Poster"],
-          // movieTitle: response["Title"],
-          // movieGenre: response["Genre"],
-          // movieRuntime: response["Runtime"],
-          // moviePlot: response["Plot"],
-          // movieYear: response["Year"],
-          // movieImdbRating: response["imdbRating"],
           movies: response["Search"]
         });
       })
@@ -87,7 +71,7 @@ export default class App extends React.Component {
   }
 
   render() {
-
+    console.log(this.props.mylist);
     if (this.state.mode === "search") {
       return (
           <div className="App">
@@ -132,7 +116,7 @@ export default class App extends React.Component {
           <div className="App">
             <div className="movie-results">
               <SearchResult movies={this.state.movies} />
-              <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode()}>RESET</Button>
+              {/* <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode()}>RESET</Button> */}
             </div>
         </div>
         );

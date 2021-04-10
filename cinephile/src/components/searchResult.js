@@ -4,16 +4,29 @@ import { Row, Col } from "react-simple-flex-grid";
 import Paper from "@material-ui/core/Paper";
 import logo from '../images/logo.png';
 import Button from '@material-ui/core/Button';
+import App from '../App.js';
 export default class SearchResult extends React.Component {
 
   state = {
     mov: "",
-    movies: [],
+    mylist: [],
+    mode: "results"
   };
 
   constructor(props) {
     super(props);
   }
+
+  toggleMode = (selectedMode) => {
+    if (selectedMode === "results") {
+      this.setState({ mode: "results" });
+    } else if (selectedMode === "mylist") {
+      this.setState({ mode: "mylist" });
+    } else {
+      this.setState({ mode: "reset" });
+    }
+  }
+
 
   addToList = (selectedMovie) => {
     if (selectedMovie !== "") {
@@ -25,7 +38,6 @@ export default class SearchResult extends React.Component {
       )
         .then((response) => response.json())
         .then((response) => {
-          console.log(response["Genre"]);
           selectedMovie.push(response["Genre"]);
           selectedMovie.push(response["Plot"]);
         })
@@ -37,10 +49,9 @@ export default class SearchResult extends React.Component {
           key: Date.now()
         };
       this.setState({
-          movies: [...this.state.movies, movieData]
+          mylist: [...this.state.mylist, movieData]
       });
     }
-    console.log(this.state.movies);
   }
 
   styles = {
@@ -65,6 +76,7 @@ export default class SearchResult extends React.Component {
 
   render() {
     // const { movies } = this.state;
+    if (this.state.mode === "results") {
       return (
           <>
               <img src={logo} className="App-logo2" alt="logo" />
@@ -80,7 +92,33 @@ export default class SearchResult extends React.Component {
                     </Col>
                     ))}
                 </Row>
+                <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("mylist")}>MY LIST</Button>
+                <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>RESET</Button>
           </>
       );
+    } else if (this.state.mode === "mylist"){
+      return (
+        <>
+            <img src={logo} className="App-logo2" alt="logo" />
+              <Row gutter={30} span={1} style={this.styles.movieColumn}>
+                {this.state.mylist.map((movie) => (
+                  <Col span={3} style={this.styles.movieColumn} >
+                      <Paper style={this.styles.moviePaper}>
+                          <img src={`${movie.data[3]}`} width="80%" alt="Movie Poster" /> 
+                          <br />
+                          <h4>{movie.data[1]} ({movie.data[2]})</h4>
+                          <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" >Remove from List</Button>
+                      </Paper>
+                  </Col>
+                  ))}
+              </Row>
+              <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" onClick={() => this.toggleMode("reset")}>RESET</Button>
+        </>
+      );
+    } else {
+      return (
+        <App />
+      );
+    }
   }
 }
