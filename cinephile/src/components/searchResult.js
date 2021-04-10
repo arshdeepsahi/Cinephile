@@ -129,7 +129,7 @@ export default class SearchResult extends React.Component {
       return (
           <>
               <img src={logo} className="App-logo2" alt="logo" />
-              <h3>Search Results ({this.props.movies.length})</h3>
+              <h3>Search Results</h3>
                 <Row gutter={30} span={1} style={this.styles.movieColumn}>
                   {this.props.movies.map((movie) => (
                     <Col span={3} style={this.styles.movieColumn} >
