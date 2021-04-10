@@ -6,7 +6,7 @@ Group Members:
 
 # How to Compile:
 
-download and cd to Project/cinephile  
+download and cd to cinephile folder  
 npm install
 
 # How to Run:
