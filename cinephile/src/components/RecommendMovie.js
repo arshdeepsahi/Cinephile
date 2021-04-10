@@ -1,4 +1,5 @@
 import logo from '../images/logo.png';
+import './RecommendMovie.css';
 import React from 'react';
 import { Row, Col } from "react-simple-flex-grid";
 import Paper from "@material-ui/core/Paper";import Button from '@material-ui/core/Button';
@@ -32,23 +33,32 @@ export default class RecommendMovie extends React.Component {
             genres.push(arr[i]);
           }
       });
-      this.setState ({
-        topGenre: this.mostOccurrences(genres)
-      })
+      var mostCommonGenre = this.mostOccurrences(genres);
+      this.getSuggestion(mostCommonGenre);
   }
 
-  getSuggestion = () => {
+  getSuggestion = (topGenre) => {
     // read all entities
+    var suggestedMovie = "";
+    if (topGenre === "Comedy") {
+        suggestedMovie = "Superbad";
+    } else if (topGenre === "Romance") {
+        suggestedMovie = "The Notebook";
+    } else {
+        suggestedMovie = "Avengers";
+    } 
+
     fetch(
-      `http://www.omdbapi.com/?s=${this.state.searchQuery}&apikey=11a56ba6&`,
+      `http://www.omdbapi.com/?t=${suggestedMovie}&apikey=11a56ba6&`,
       {
         method: "GET",
       }
     )
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         this.setState({
-          movieSuggestions: response["Search"]
+          movieSuggestions: [response["Title"], response["Year"], response["Poster"], response["Plot"], response["imdbRating"]]
         });
       })
       .catch((err) => {
@@ -81,19 +91,16 @@ export default class RecommendMovie extends React.Component {
         return (
             <>
             <img src={logo} className="App-logo2" alt="logo" />
-            <h3>Recommended Movies</h3>
-            <Row gutter={30} span={1} style={this.styles.movieColumn}>
-                {this.state.mylist.map((movie) => (
-                        <Col span={3} style={this.styles.movieColumn} >
-                            <Paper style={this.styles.moviePaper}>
-                                <img src={`${movie.data[3]}`} width="80%" alt="Movie Poster" /> 
-                                <br />
-                                <h4>{movie.data[1]} ({movie.data[2]})</h4>
-                                <Button variant="outlined" color="secondary" class="reset" style={{ marginBottom: '2vh' }} size= "large" >Remove from List</Button>
-                            </Paper>
-                        </Col>
-                ))}
-            </Row>       
+            <h3>Recommended Movie</h3>
+                <center>
+                    <Paper style={this.styles.moviePaper}>
+                        <img src={`${this.state.movieSuggestions[2]}`} width="80%" alt="Movie Poster" /> 
+                        <br />
+                        <h4>{this.state.movieSuggestions[0]} ({this.state.movieSuggestions[1]})</h4>
+                        <p>{this.state.movieSuggestions[3]}</p>
+                        <h5>{this.state.movieSuggestions[4]}</h5>
+                    </Paper>     
+                </center>
             </>
         );
     }

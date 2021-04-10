@@ -90,14 +90,6 @@ export default class App extends React.Component {
     }
   }
 
-  // toggleMode = () => {
-  //   if (this.state.mode === "search") {
-  //     this.setState({ mode: "display" })
-  //   } else {
-  //     this.setState({ mode: "search" })
-  //   }
-  // }
-
   render() {
     console.log(this.props.mylist);
     if (this.state.mode === "search") {
