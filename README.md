@@ -2,9 +2,10 @@
 http://www.omdbapi.com/  
 API KEY: 11a56ba6  
 
-# Essential Features:
-Add to list (search)  
+# How to Compile:
 
-# If we have time:
-reccomendation tool  
-User authentication with DB  
+# How to Deploy:
+
+# How to run:
+
+# External Resources Used:
