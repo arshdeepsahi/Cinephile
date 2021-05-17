@@ -1,7 +1,7 @@
 # Cinephile
 Group Members:  
 - Arshdeep Sahi
-- Ireoluwatomiwa Oladele
+- Tommy Oladele
 - Scott Peebles
 
 # How to Compile:
